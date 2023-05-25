@@ -6,15 +6,15 @@ The deployment consists of an EC2 instance deployed by an Auto Scaling Group (AS
 
 ## Repository Structure
 
-- `main.tf` - Contains the provider configuration and calls to the modules.
-- `_data.tf` - Contains all data blocks.
-- `vpc.tf` - Contains the configuration for the VPC and related networking resources.
-- `ec2.tf` - Contains the configuration for the EC2 instance and related resources.
-- `alb.tf` - Contains the configuration for the Application Load Balancer.
-- `asg.tf` - Contains the configuration for the Auto Scaling Group.
-- `route53.tf` - Contains the configuration for Route 53 resources.
-- `acm.tf` - Contains the configuration for Amazon Certificate Manager.
-- `test.sh` - A Bash script for testing the website.
+- `main.tf` - Contains the provider configuration and calls to the modules
+- `_data.tf` - Contains all data blocks
+- `_data.tf` - Contains all variable blocks used in code
+- `_outputs.tf` - Contains needed output blocks
+- `vpc.tf` - Contains the configuration for the VPC and related networking resources
+- `alb.tf` - Contains the configuration for the Application Load Balancer
+- `asg.tf` - Contains the configuration for the Auto Scaling Group
+- `acm.tf` - Contains the configuration for Amazon Certificate Manager
+- `test.sh` - A Bash script for testing the website
 
 ## Prerequisites
 - AWS account with necessary permissions
