@@ -1,0 +1,11 @@
+**/.terraform
+*.tfstate
+*.tfstate.*
+terraform.tfvars
+*.tfplan
+.terraformrc
+terraform.rc
+.tfenv
+.tfstate.d
+.terraform.lock.hcl
+*.pem
