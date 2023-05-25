@@ -75,12 +75,12 @@ resource "aws_security_group" "alb_sg" {
 
 resource "aws_security_group" "ec2_sg" {
   name        = "ec2_sg"
-  description = "Allow inbound traffic on port 80 from ALB"
+  description = "Allow inbound traffic on port 443 from ALB"
   vpc_id      = aws_vpc.main.id
 
   ingress {
-    from_port       = 80
-    to_port         = 80
+    from_port       = 443
+    to_port         = 443
     protocol        = "tcp"
     security_groups = [aws_security_group.alb_sg.id]
   }

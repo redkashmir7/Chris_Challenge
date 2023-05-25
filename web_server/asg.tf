@@ -9,42 +9,40 @@ resource "aws_launch_configuration" "asg_config" {
     #!/bin/bash
     sudo apt-get update -y
     sudo apt-get install -y apache2
-    sudo systemctl restart apache2
-    echo '<html>
-    <head>
-    <title>Hello World</title>
-    </head>
-    <body>
-    <h1>Hello World!</h1>
-    </body>
-    </html>' | sudo tee /var/www/html/index.html
+    sudo systemctl enable apache2
+    sudo systemctl start apache2
 
-    # Enable SSL module and configure for HTTPS
+    # Generate a self-signed certificate
+    sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/apache-selfsigned.key -out /etc/ssl/certs/apache-selfsigned.crt -subj "/CN=localhost"
+
+    # Enable SSL
     sudo a2enmod ssl
-  
-    echo '
+    sudo a2enmod rewrite
+
+    # Create a basic HTML file
+    echo '<html><head><title>Hello World</title></head><body><h1>Hello World!</h1></body></html>' | sudo tee /var/www/html/index.html
+
+    # Configure a VirtualHost to use SSL and redirect HTTP to HTTPS
+    sudo bash -c 'cat > /etc/apache2/sites-available/000-default.conf << EOL
+    <VirtualHost *:80>
+      ServerName localhost
+      RewriteEngine On
+      RewriteCond $${HTTPS}$$ off
+      RewriteRule (.*) https://$${HTTP_HOST}$${REQUEST_URI}
+    </VirtualHost>
+
     <VirtualHost *:443>
-      ServerName www.chriscomcastcode.com
+      ServerName localhost
       DocumentRoot /var/www/html
 
       SSLEngine on
       SSLCertificateFile /etc/ssl/certs/apache-selfsigned.crt
       SSLCertificateKeyFile /etc/ssl/private/apache-selfsigned.key
     </VirtualHost>
+    EOL'
 
-    <VirtualHost *:443>
-      ServerName chriscomcastcode.com
-      DocumentRoot /var/www/html
-
-      SSLEngine on
-      SSLCertificateFile /etc/ssl/certs/apache-selfsigned.crt
-      SSLCertificateKeyFile /etc/ssl/private/apache-selfsigned.key
-    </VirtualHost>
-    ' | sudo tee /etc/apache2/sites-available/chriscomcastcode.conf
-
-    # Enable the SSL virtual hosts
-    sudo a2ensite chriscomcastcode.conf
-
+    # Enable the configuration and restart Apache
+    sudo a2ensite 000-default.conf
     sudo systemctl restart apache2
   EOF
 
@@ -70,7 +68,7 @@ resource "aws_autoscaling_group" "asg" {
   }
 }
 
-resource "aws_autoscaling_policy" "scale_up" {
+resource "aws_autoscaling_policy" "asg_policy" {
   name                   = "scale-up"
   adjustment_type        = "ChangeInCapacity"
   autoscaling_group_name = aws_autoscaling_group.asg.name
