@@ -20,7 +20,7 @@ The deployment consists of an EC2 instance deployed by an Auto Scaling Group (AS
 - AWS account with necessary permissions
 - Terraform installed (version 0.14 or later)
 - AWS CLI installed and configured
-- `jq` and `curl` tools installed for running the test script
+
 
 ## Deployment Instructions
 1. Move into web_server directory:
@@ -40,9 +40,9 @@ The deployment consists of an EC2 instance deployed by an Auto Scaling Group (AS
 After applying the Terraform configuration, you can verify if the website is accessible by running the `test.sh` script. This script sends a GET request to the website and checks if the response contains the expected content. It can be ran with the following:
 
 ```bash
-./test.sh
+sh test.sh
 ```
 
 # Credit Card Validator
 
-This Python function validates a credit card number using regular expressions. It checks the starting digits, length, group separation, and for consecutive repeated digits. It contains sucess and failure cases for the different required rules at the following address: https://www.hackerrank.com/challenges/validating-credit-card-number/problem
+This Python function validates a credit card number using regex. It checks the starting digits, length, group separation, and for consecutive repeated digits. It contains sucess and failure cases for the different required rules at the following address: https://www.hackerrank.com/challenges/validating-credit-card-number/problem
