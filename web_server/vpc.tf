@@ -31,7 +31,7 @@ resource "aws_route_table" "public" {
   }
 
   route {
-    cidr_block = "0.0.0.0/0"
+    cidr_block = var.all_traffic
     gateway_id = aws_internet_gateway.igw.id
   }
 }
@@ -51,21 +51,21 @@ resource "aws_security_group" "alb_sg" {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = [var.all_traffic]
   }
 
   ingress {
     from_port   = 443
     to_port     = 443
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = [var.all_traffic]
   }
 
   egress {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = [var.all_traffic]
   }
 
   lifecycle {
@@ -89,7 +89,7 @@ resource "aws_security_group" "ec2_sg" {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = [var.all_traffic]
   }
 
   lifecycle {

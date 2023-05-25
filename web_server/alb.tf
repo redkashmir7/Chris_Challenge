@@ -44,19 +44,19 @@ resource "aws_lb_target_group" "web_tg" {
 
   stickiness {
     type            = "lb_cookie"
-    cookie_duration = 1800
+    cookie_duration = var.tg_cookie_duration
     enabled         = true
   }
 
   health_check {
     enabled             = true
-    interval            = 30
+    interval            = var.tg_health_check_interval
     path                = "/"
     port                = "traffic-port"
     protocol            = "HTTPS"
-    healthy_threshold   = 3
-    unhealthy_threshold = 3
-    timeout             = 5
+    healthy_threshold   = var.tg_health_check_threshold
+    unhealthy_threshold = var.tg_health_check_threshold
+    timeout             = var.tg_health_check_timeout
   }
 }
 

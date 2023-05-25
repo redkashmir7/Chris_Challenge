@@ -11,7 +11,6 @@ fi
 
 # Use curl to fetch the webpage hosted on the ALB as well as trouble shot
 response=$(curl -s -k "https://$elb_dns_name:443")
-echo "Response: $response"
 if [[ "$response" == *"301 Moved Permanently"* ]]; then
   new_location=$(echo "$response" | grep -i "Location:" | awk -F ': ' '{print $2}' | tr -d '\r')
 

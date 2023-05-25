@@ -1,8 +1,5 @@
-# resource "aws_acm_certificate" "cert" {
-#   domain_name       = "chriscomcastcode.com"
-#   validation_method = "DNS"
-#   subject_alternative_names = ["www.chriscomcastcode.com"]#
-#   lifecycle {
-#     create_before_destroy = true
-#   }
-# }
+resource "aws_acm_certificate" "cert" {
+  private_key      = file("${path.module}/privkey.pem")
+  certificate_body = file("${path.module}/fullchain.pem")
+
+}
