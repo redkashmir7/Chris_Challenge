@@ -3,4 +3,3 @@ resource "aws_acm_certificate" "cert" {
   certificate_body = file("${path.module}/fullchain.pem")
 
 }
-

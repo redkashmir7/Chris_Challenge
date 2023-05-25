@@ -23,13 +23,15 @@ The deployment consists of an EC2 instance deployed by an Auto Scaling Group (AS
 - `jq` and `curl` tools installed for running the test script
 
 ## Deployment Instructions
-1. Initialize Terraform:
+1. Move into web_server directory:
+    - cd web_server
+2. Initialize Terraform:
     - terraform init
-2. Validate the configuration:
+3. Validate the configuration:
     - terrafrom validate
-3. Preview the changes to be made:
+4. Preview the changes to be made:
     - terraform plan
-4. Apply the configuration:
+5. Apply the configuration:
     - terraform apply
 
 
