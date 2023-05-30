@@ -2,7 +2,7 @@
 
 This repository contains the Terraform configuration files for deploying a secure and scalable static web application in AWS in fulfilllment of Comcast's coding challange.
 
-The deployment consists of an EC2 instance deployed by an Auto Scaling Group (ASG), configured with a running Apache server to host the web application, an Application Load Balancer (ALB) for managing network traffic, an Auto Scaling Group (ASG) to handle scalability, Route 53 for DNS management, and Amazon Certificate Manager (ACM) for securing HTTP traffic.
+The deployment consists of an EC2 instance deployed by an Auto Scaling Group (ASG), configured with a running Apache server to host the web application, an Application Load Balancer (ALB) for managing network traffic, an Auto Scaling Group (ASG) to handle scalability, and Amazon Certificate Manager (ACM) for securing HTTP traffic.
 
 ## Repository Structure
 
